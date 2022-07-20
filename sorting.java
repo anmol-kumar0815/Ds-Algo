@@ -46,11 +46,48 @@ public class sorting{
         }
     }
     
+    public static int[] mergeTwoSortedArray(int[] a, int[] b){
+        int[] ans = new int[a.length + b.length];
+        int i = 0, j = 0, p = 0;
+        while(i < a.length && j < b.length){
+            if(a[i] < b[j]){
+                ans[p++] = a[i++];
+            }else{
+                ans[p++] = b[j++];
+            }
+        }
+
+        while(i < a.length){
+            ans[p++] = a[i];
+            i++;
+        }
+        while(j < b.length){
+            ans[p++] = a[j];
+            j++;
+        }
+
+        return ans;
+    } 
+
+    public static int[] mergeSort(int i, int j, int[] ary){
+        if(i == j){
+            int[] base = new int[1];
+            base[0] = ary[i];
+            return base;
+        }
+        int mid = (i + j) / 2;
+        int[] firstSorted = mergeSort(i, mid, ary);
+        int[] secondSorted = mergeSort(mid+1, j, ary);
+
+        return mergeTwoSortedArray(firstSorted, secondSorted);
+    }
+
     public static void main(String args[]){
         int[] ary = intputArray();
 
         //bubbleSort(ary);
-        selectionSort(ary);
-        printArray(ary);
+        // selectionSort(ary);
+        // int [] ans = mergeSort(0, ary.length-1, ary);
+        // printArray(ans);
     }
 }
